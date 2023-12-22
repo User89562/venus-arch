@@ -1,4 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'variables';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    margin: 0;
+    background-color: #121212;
+    color: whitesmoke !important;
+    text-shadow: 0px 0px 1px black;
+    font-family: "Roboto";
+}
+  
+h1 {
+    font-family: "Permanent Marker" !important;
+}
+
+/*form field sizes*/
+.form-field-xs {
+    width: 320px;
+  }
+  
+  .form-field-gt-xs {
+    width: 520px;
+  }
+  
+  .form-field-gt-md {
+    width: 1015px;
+  }
+  
+  // used for archive-delete-filter overlay
+  .backdrop-class {
+    background: #1f1b24 !important;
+  }
+  
+  // divider for dark mode
+  #dark-mode-divider {
+    border-color: variables.$divider-color !important;
+    padding: 8px;
+  }
+  
+  .mat-button,
+  .mat-flat-button {
+    color: whitesmoke !important;
+  }
+  
+  
+  .continue-checkbox .mat-checkbox-inner-container{
+    height: 20px !important;
+    width: 20px !important;
+  }
+  .continue-checkbox .mat-checkbox-label{
+    font-size: 20px !important;
+    line-height: 20px !important;
+  }

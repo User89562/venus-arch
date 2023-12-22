@@ -1,0 +1,77 @@
+.grid-container {
+    display:grid;
+    gap: 10px;
+    align-items: center;
+    grid-template-areas: 
+    ". gh ."
+    ". gc .";
+}
+.grid-header {
+    grid-area: gh;
+    display:grid;
+    grid-template-areas: 
+    " . l ."
+    " . n .";
+
+}
+.grid-contents {
+    grid-area: gc
+}
+
+.logo-container {
+    grid-area: l;
+    align-self: center;
+    justify-self: center;
+}
+.title-container {
+    grid-area: n;
+}
+
+.app-logo {
+    grid-area: l;
+    margin-bottom: 15px;
+    height: 400px;
+    width: auto;
+    border-radius: 50%;
+  }
+  
+  
+  .form-box {
+    margin: 20px;
+  }
+  
+  .login-form-card {
+      background-color: #005cb248;
+      border: 5px solid black;
+  }
+  
+  .form-fields-box {
+    margin: 35px;
+  }
+  
+  
+
+  
+  .progress-bar {
+    width: 30vw;
+  }
+  
+  .password-visibility {
+    color: whitesmoke;
+  }
+
+  h1, h3 {
+    font-variant: small-caps;
+  }
+
+  .login-title {
+    font-size: 55px;
+    text-align: center;
+  }
+
+  .login-subtitle {
+    font-size: 35px;
+    text-align: center;
+  }
+  
+  
