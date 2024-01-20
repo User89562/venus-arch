@@ -4,5 +4,6 @@
   - "npx npm-check-updates"
 - [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages)
   - 'ng deploy' to build and deploy to github pages
+  - npx angular-cli-ghpages --dir=dist/venus-arch/browser
 - [Material](https://material.angular.io/)
 - [Bar Rating](https://github.com/MurhafSousli/ngx-bar-rating)
