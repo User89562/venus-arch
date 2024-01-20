@@ -5,3 +5,4 @@
 - [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages)
   - 'ng deploy' to build and deploy to github pages
 - [Material](https://material.angular.io/)
+- [Bar Rating](https://github.com/MurhafSousli/ngx-bar-rating)

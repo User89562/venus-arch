@@ -1,0 +1,132 @@
+<div cdkVirtualScrollingElement class="main-container">
+  <div class="search-container">
+    <div class="tag-form-container">
+      <mat-form-field class="tag-form-field">
+        <mat-label>Search</mat-label>
+        <mat-chip-grid
+          #chipGrid
+          aria-label="Enter Search Terms"
+          [formControl]="searchFormControl"
+        >
+          @for (tag of tags; track tag) {
+          <mat-chip-row
+            (removed)="removeTag(tag)"
+            (click)="openEditDialog($event)"
+          >
+            {{ tag }}
+            <button matChipRemove aria-label="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+        </mat-chip-grid>
+        <input
+          placeholder="New Tag..."
+          [matChipInputFor]="chipGrid"
+          (matChipInputTokenEnd)="addTag($event)"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <button
+        mat-flat-button
+        color="accent"
+        class="search-play-button"
+        (click)="changeSearchStatus()"
+      >
+        <mat-icon>{{ startSearch ? "play_arrow" : "pause" }}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <cdk-virtual-scroll-viewport
+    class="virtual-container"
+    appendOnly
+    [itemSize]="itemHeight"
+    [minBufferPx]="itemHeight * 3"
+    [maxBufferPx]="itemHeight * 5"
+    [ngStyle]="{
+      'height.px': h
+    }"
+  >
+    <div
+      *cdkVirtualFor="let items of itemSet; templateCacheSize: 0"
+      class="files-container"
+    >
+      @if(!loading) { @for (item of items; track $index) {
+      <div class="">
+        <div [ngStyle]="{ border: isFileSelected(item) }">
+          <app-image-display
+            [hydrusFile]="item"
+            [widthNum]="itemWidth"
+            [heightNum]="itemHeight"
+            [thumbnail]="false"
+          ></app-image-display>
+          @if (isFilePendingArchive(item)){
+          <div class="archive-button-container">
+            <button
+              mat-flat-button
+              color="warn"
+              (click)="removeFromArchive(item)"
+              class="archive-button"
+            >
+              Unarchive
+            </button>
+          </div>
+
+          } @else {
+          <div class="temp-spacer"></div>
+          }
+        </div>
+        <div >
+          <!--ratings-->
+          @for (rS of ratingServices.keys(); track $index) {
+          <div class="ratings-container">
+            <h3 class="rating-name">{{ ratingServices.get(rS)?.name }}</h3>
+            
+            @if (isNumericalRatingService(returnService(ratingServices.get(rS)))) {
+            <bar-rating
+              class="bar-rating-container"
+              [rate]="returnNumRating(item, rS)"
+              [max]="ratingServices.get(rS)?.max_stars || 0"
+              (rateChange)="setRating($event, rS, item)"
+            >
+            </bar-rating>
+            } 
+            @else if (isLikeRatingService(returnService(ratingServices.get(rS)))) { 
+              <button 
+                mat-mini-fab 
+                [color]="returnLikeDislikeRating(item, rS) ? 'primary' : ''" 
+                (click)="setRating(!returnLikeDislikeRating(item, rS), rS, item)"
+                class="like-dislike-button"
+              >
+                <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === null" >thumb_up_off_alt</mat-icon>
+                <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === true" >thumb_up</mat-icon>
+                <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === false" >thumb_down</mat-icon>
+              </button>
+            }
+          </div>
+          }
+        </div>
+      </div>
+      } @empty {
+      <h2>No Files Found</h2>
+      } } @else { loading ... }
+    </div>
+  </cdk-virtual-scroll-viewport>
+  @if (itemSet.length>0) {
+  <div class="form-submission-container">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="submitFiles()"
+      class="submit-button"
+    >
+      Submit
+    </button>
+    <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
+      >Continue Filtering</mat-checkbox
+    >
+  </div>
+  }
+</div>

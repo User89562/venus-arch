@@ -1,93 +1,84 @@
-<div class="grid-container" >
-
-    <div class="grid-header">
-        <div class="logo-container">
-            <img [src]="logo" class="app-logo">
-        </div>
-      <div class="title-container">
-        <h1 class="login-title">{{title}}</h1>
-        <h3 class="login-subtitle">{{subtitle}}</h3>
-      </div>
+<div class="grid-container">
+  <div class="grid-header">
+    <div class="logo-container">
+      <img [src]="logo" class="app-logo" />
     </div>
-
-
-    <div class="grid-contents">
-        <div *ngIf="loggingIn">
-            <h3>Attempting to login....</h3>
-            <mat-progress-bar mode="indeterminate" class="progress-bar"></mat-progress-bar>
-          </div>
-          <div  *ngIf="!loggingIn">
-            <mat-card class="login-form-card">
-              <div class="form-box">
-                <form
-                  [formGroup]="loginForm"
-                  (ngSubmit)="onSubmit(loginForm.value)"
-                  class="form"
-                >
-                  <div
-                  
-                    class="form-fields-box"
-                   
-                  >
-                    <mat-form-field
-                      appearance="outline"
-                    >
-                      <mat-label> Api Url </mat-label>
-                      <input
-                        matInput
-                        id="apiUrl"
-                        formControlName="apiUrl"
-                        autofocus
-                        type="text"
-                        required
-                      />
-                    </mat-form-field>
-        
-                    <mat-form-field
-                      appearance="outline"
-                    >
-                      <mat-label> Api Access Key </mat-label>
-                      <input
-                        matInput
-                        id="apiKey"
-                        formControlName="apiKey"
-                        [type]="hide ? 'password' : 'text'"
-                        (keyup)="onKey($event)"
-                        required
-                      />
-                      <button
-                        mat-icon-button
-                        class="password-visibility"
-                        matSuffix
-                        (click)="hide = !hide"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide"
-                        type="button"
-                      >
-                        <mat-icon>{{
-                          hide ? "visibility_off" : "visibility"
-                        }}</mat-icon>
-                      </button>
-                    </mat-form-field>
-                    <mat-error>{{loginError}}</mat-error>
-                  </div>
-        
-                  <div class="submit-container">
-                    <button
-                      mat-flat-button
-                      color="accent"
-                      [disabled]="!loginForm.valid"
-                      class="submit-button"
-                      type="submit"
-                    >
-                      Login
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </mat-card>
-          </div>
+    <div class="title-container">
+      <!--<h1 class="login-title">{{title}}</h1>-->
+      <h3 class="login-subtitle">{{ subtitle }}</h3>
     </div>
-   
   </div>
-  
+
+  <div class="grid-contents">
+    <div *ngIf="loggingIn">
+      <h3>Attempting to login....</h3>
+      <mat-progress-bar
+        mode="indeterminate"
+        class="progress-bar"
+      ></mat-progress-bar>
+    </div>
+    <div *ngIf="!loggingIn">
+      <mat-card class="login-form-card">
+        <div class="form-box">
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit(loginForm.value)"
+            class="form"
+          >
+            <div class="form-fields-box">
+              <mat-form-field appearance="outline" class="form-fields">
+                <mat-label> Api Url </mat-label>
+                <input
+                  matInput
+                  id="apiUrl"
+                  formControlName="apiUrl"
+                  autofocus
+                  type="text"
+                  required
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-fields">
+                <mat-label> Api Access Key </mat-label>
+                <input
+                  matInput
+                  id="apiKey"
+                  formControlName="apiKey"
+                  [type]="hide ? 'password' : 'text'"
+                  (keyup)="onKey($event)"
+                  required
+                />
+                <button
+                  mat-icon-button
+                  class="password-visibility"
+                  matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide"
+                  type="button"
+                >
+                  <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+              </mat-form-field>
+              <mat-error>{{ loginError }}</mat-error>
+            </div>
+
+            <div class="submit-container">
+              <button
+                mat-flat-button
+                color="accent"
+                [disabled]="!loginForm.valid"
+                class="submit-button"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

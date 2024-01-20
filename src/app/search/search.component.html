@@ -1,1 +1,39 @@
-<p>search works!</p>,
+<div>
+    <mat-form-field class="tag-form-field">
+        <mat-label>Search</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter Search Terms" [formControl]="searchFormControl">
+            @for (tag of tags; track tag) {
+                <mat-chip-row (removed)="removeTag(tag)">
+                  {{tag}}
+                  <button matChipRemove aria-label="'remove ' + tag">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+            </mat-chip-grid>
+            <input placeholder="New Tag..."
+                    [matChipInputFor]="chipGrid"
+                    (matChipInputTokenEnd)="addTag($event)"/>
+    </mat-form-field>
+</div>
+<div>
+  <button
+    mat-flat-button
+    color="accent"
+    class="search-play-button"
+    (click)="changeSearchStatus()"
+  >
+    <mat-icon>{{ startSearch ? "play_arrow" : "pause" }}</mat-icon>
+  </button>
+</div>
+<div class="image-container">
+  <div *ngFor="let item of hydrusFiles" >
+    <app-image-display
+    [hydrusFile]="item"
+    [widthNum]="365"
+    [heightNum]="330"
+    [thumbnail]="true"
+    ></app-image-display>
+  </div>
+</div>
+

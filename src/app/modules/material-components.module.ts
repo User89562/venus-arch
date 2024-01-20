@@ -88,7 +88,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     MatBadgeModule,
     MatSortModule,
     ClipboardModule,
-    ScrollingModule,
+    ScrollingModule
   ],
   providers: [
     {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults},
