@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { HydrusFile } from '../services/api';
 import { FileService } from '../services/file.service';
 import { ImageDisplayComponent } from '../image-display/image-display.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search',
@@ -29,12 +30,13 @@ export class SearchComponent {
   hydrusFiles: HydrusFile[];
   continueFilter: boolean;
 
-  constructor(private fileService: FileService) {
+  constructor(private fileService: FileService, titleService: Title) {
     this.tags = ["system:limit = 5", "system:inbox", "system:no_duration"];
     this.startSearch = false;
     this.loading = false;
     this.hydrusFiles = [];
     this.continueFilter = false;
+    titleService.setTitle("Search | Venus\' Arch");
   }
   removeTag(tag: string) {
     const index = this.tags.indexOf(tag);

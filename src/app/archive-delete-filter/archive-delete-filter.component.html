@@ -62,29 +62,30 @@
             [heightNum]="itemHeight"
             [thumbnail]="false"
           ></app-image-display>
-          @if (isFilePendingArchive(item)){
-          <div class="archive-button-container">
+          <div class="image-action-container">
+            <button mat-icon-button class="download-button"  (click)="downloadFile(item)">
+              <mat-icon>download</mat-icon>
+            </button>
+            <div class="spacer"></div>
+            @if (isFilePendingArchive(item)){
             <button
-              mat-flat-button
+              mat-icon-button
               color="warn"
               (click)="removeFromArchive(item)"
-              class="archive-button"
             >
-              Unarchive
+              <mat-icon>unarchive</mat-icon>
             </button>
+            }
           </div>
-
-          } @else {
-          <div class="temp-spacer"></div>
-          }
         </div>
-        <div >
+        <div>
           <!--ratings-->
           @for (rS of ratingServices.keys(); track $index) {
           <div class="ratings-container">
             <h3 class="rating-name">{{ ratingServices.get(rS)?.name }}</h3>
-            
-            @if (isNumericalRatingService(returnService(ratingServices.get(rS)))) {
+
+            @if
+            (isNumericalRatingService(returnService(ratingServices.get(rS)))) {
             <bar-rating
               class="bar-rating-container"
               [rate]="returnNumRating(item, rS)"
@@ -92,18 +93,24 @@
               (rateChange)="setRating($event, rS, item)"
             >
             </bar-rating>
-            } 
-            @else if (isLikeRatingService(returnService(ratingServices.get(rS)))) { 
-              <button 
-                mat-mini-fab 
-                [color]="returnLikeDislikeRating(item, rS) ? 'primary' : ''" 
-                (click)="setRating(!returnLikeDislikeRating(item, rS), rS, item)"
-                class="like-dislike-button"
+            } @else if
+            (isLikeRatingService(returnService(ratingServices.get(rS)))) {
+            <button
+              mat-mini-fab
+              [color]="returnLikeDislikeRating(item, rS) ? 'primary' : ''"
+              (click)="setRating(!returnLikeDislikeRating(item, rS), rS, item)"
+              class="like-dislike-button"
+            >
+              <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === null"
+                >thumb_up_off_alt</mat-icon
               >
-                <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === null" >thumb_up_off_alt</mat-icon>
-                <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === true" >thumb_up</mat-icon>
-                <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === false" >thumb_down</mat-icon>
-              </button>
+              <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === true"
+                >thumb_up</mat-icon
+              >
+              <mat-icon *ngIf="returnLikeDislikeRating(item, rS) === false"
+                >thumb_down</mat-icon
+              >
+            </button>
             }
           </div>
           }
@@ -115,18 +122,27 @@
     </div>
   </cdk-virtual-scroll-viewport>
   @if (itemSet.length>0) {
-  <div class="form-submission-container">
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="submitFiles()"
-      class="submit-button"
-    >
-      Submit
-    </button>
-    <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
-      >Continue Filtering</mat-checkbox
-    >
-  </div>
+    <div class="footer">
+      <div class="current-stats-container">
+        <p>Archiving: {{userFileChanges.archive.length}}</p>
+        <p>Trashing: {{hydrusFiles.length - userFileChanges.archive.length}}</p>
+        
+
+      </div>
+      <div class="form-submission-container">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="submitFiles()"
+          class="submit-button"
+        >
+          Submit
+        </button>
+        <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
+          >Continue Filtering</mat-checkbox
+        >
+      </div>
+    </div>
+  
   }
 </div>

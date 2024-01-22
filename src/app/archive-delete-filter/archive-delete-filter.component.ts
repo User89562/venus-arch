@@ -35,6 +35,7 @@ import {
 import { BarRatingModule } from "ngx-bar-rating";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogFormComponent } from "../dialog-form/dialog-form.component";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-archive-delete-filter",
@@ -83,7 +84,8 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     private readonly viewportRuler: ViewportRuler,
     private readonly ngZone: NgZone,
     private changeDetectorRef: ChangeDetectorRef,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    titleService: Title
   ) {
     this.tags = ["system:limit = 8", "system:inbox", "system:no_duration"];
     this.startSearch = false;
@@ -96,6 +98,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.userFileChanges = new UserFiles();
     this.continue = true;
     this.ratingServices = new Map<string, HydrusRating>();
+    titleService.setTitle("Archive/Delete Filter | Venus\' Arch");
   }
 
   isNumericalRatingService = isNumericalRatingService;
@@ -178,7 +181,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.chunkSize = Math.floor(w / (this.itemWidth + 100));
     this.h =
       Math.ceil(this.hydrusFiles.length / this.chunkSize) *
-      (this.itemHeight + 155 + 130);
+      (this.itemHeight + 155 + 145);
   }
 
   removeTag(tag: string) {
@@ -297,6 +300,25 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     }
   }
 
+  downloadFile(file: HydrusFile): void {
+    this.fileService.downloadFile(file).subscribe({
+      next: (fileBlob) => {
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        let url = window.URL.createObjectURL(fileBlob);
+        a.href = url;
+        let fileName = file.hash;
+        //filename + file extension from mime
+        a.download = `${fileName}.${file.ext}`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+
+        window.open(url);
+      },
+    });
+  }
+
   //determine files to be trashed/archive/changed
   submitFiles(): void {
     let f: HydrusFile[] = this.hydrusFiles;
@@ -400,6 +422,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
       });
     }
   }
+
 
   scrollToTop(): void {
     this.virtualScroll.scrollToIndex(0);

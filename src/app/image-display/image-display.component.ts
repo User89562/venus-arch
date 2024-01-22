@@ -34,6 +34,8 @@ export class ImageDisplayComponent {
       this.fileType = 'gif';
     } else if (this.hydrusFile.mime.includes('image')){
       this.fileType = 'image';
+    } else {
+      this.fileType = 'other';
     }
   }
 

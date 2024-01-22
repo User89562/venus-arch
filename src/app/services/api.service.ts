@@ -8,6 +8,7 @@ import { LoginUtil } from "../utils/login-util";
 import { Observable, catchError, throwError } from "rxjs";
 import { HydrusKeyVerificationData } from "../login/login";
 import {
+  Boned,
   FileSearchAPI,
   HydrusFileId,
   HydrusFileIds,
@@ -185,6 +186,17 @@ export class ApiService {
       .get<HydrusServiceInfo>(searchUrl, httpOptions)
       .pipe(catchError(this.handleError));
   }
+
+      /******************************************************************** 
+    /*                         MANAGING DATABASE
+    /******************************************************************** */
+  
+    howBoned(): Observable<Boned> {
+      let delUrl = this.backendApi + 'manage_database/mr_bones';
+      return this.http
+        .get<Boned>(delUrl, this.setHttpOptions())
+        .pipe(catchError(this.handleError));
+    }
 
   /**
    * Setting HTTP OPTIONS
