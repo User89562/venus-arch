@@ -10,4 +10,6 @@
             ...
         }
     ``` 
+- create seperate components (search -> virtual scroller...etc) to be reused in other components like both search and archive/delete filter needing search functionality
+- saving current search and maintaining the search parameters on reload
 - Duplicate filtering

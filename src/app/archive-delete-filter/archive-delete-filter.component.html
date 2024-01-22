@@ -38,7 +38,7 @@
       </button>
     </div>
   </div>
-
+  @if(!loading) {
   <cdk-virtual-scroll-viewport
     class="virtual-container"
     appendOnly
@@ -53,7 +53,7 @@
       *cdkVirtualFor="let items of itemSet; templateCacheSize: 0"
       class="files-container"
     >
-      @if(!loading) { @for (item of items; track $index) {
+      @for (item of items; track $index) {
       <div class="">
         <div [ngStyle]="{ border: isFileSelected(item) }">
           <app-image-display
@@ -63,7 +63,11 @@
             [thumbnail]="false"
           ></app-image-display>
           <div class="image-action-container">
-            <button mat-icon-button class="download-button"  (click)="downloadFile(item)">
+            <button
+              mat-icon-button
+              class="download-button"
+              (click)="downloadFile(item)"
+            >
               <mat-icon>download</mat-icon>
             </button>
             <div class="spacer"></div>
@@ -84,8 +88,8 @@
           <div class="ratings-container">
             <h3 class="rating-name">{{ ratingServices.get(rS)?.name }}</h3>
 
-            @if
-            (isNumericalRatingService(returnService(ratingServices.get(rS)))) {
+            @if(isNumericalRatingService(returnService(ratingServices.get(rS))))
+            {
             <bar-rating
               class="bar-rating-container"
               [rate]="returnNumRating(item, rS)"
@@ -118,31 +122,38 @@
       </div>
       } @empty {
       <h2>No Files Found</h2>
-      } } @else { loading ... }
+      }
     </div>
   </cdk-virtual-scroll-viewport>
-  @if (itemSet.length>0) {
-    <div class="footer">
-      <div class="current-stats-container">
-        <p>Archiving: {{userFileChanges.archive.length}}</p>
-        <p>Trashing: {{hydrusFiles.length - userFileChanges.archive.length}}</p>
-        
-
-      </div>
-      <div class="form-submission-container">
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="submitFiles()"
-          class="submit-button"
-        >
-          Submit
-        </button>
-        <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
-          >Continue Filtering</mat-checkbox
-        >
-      </div>
+  } @else {
+  <div class="loading-container">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    @if (processing) {
+    <p matLine *ngIf="processing" class="processing-text">
+      Processing Filter...
+    </p>
+    }
+  </div>
+  } @if (hydrusFiles.length >0 && !(processing || loading)) {
+  <div class="footer">
+    <div class="current-stats-container">
+      <p>Archiving: {{ userFileChanges.archive.length }}</p>
+      <p>Trashing: {{ hydrusFiles.length - userFileChanges.archive.length }}</p>
     </div>
-  
+    <div class="form-submission-container">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="submitFiles()"
+        class="submit-button"
+      >
+        Submit
+      </button>
+      <mat-checkbox [(ngModel)]="continue" class="continue-checkbox"
+        >Continue Filtering</mat-checkbox
+      >
+    </div>
+  </div>
+
   }
 </div>

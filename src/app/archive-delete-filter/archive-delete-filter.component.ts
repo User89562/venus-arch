@@ -281,6 +281,10 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     if (this.startSearch) {
       this.loading = true;
       this.hydrusFiles = [];
+      this.userFileChanges.archive = [];
+      this.userFileChanges.delete = [];
+      this.userFileChanges.skipped = [];
+      this.ratingFileChanges = [];
       this.changeDetectorRef.detectChanges();
 
       this.fileService
@@ -294,7 +298,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
             this.hydrusFiles = files;
             this.generateDataChunk(this.hydrusFiles);
             this.loading = false;
-            this.scrollToTop();
+
           },
         });
     }
@@ -375,6 +379,8 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.loading = true;
     let archiveIds = userFiles.archive.map((a) => a.file_id);
     let deleteIds = userFiles.delete.map((a) => a.file_id);
+
+    this.scrollToTop();
 
     //update file ratings
     if (this.ratingFileChanges.length > 0) {
