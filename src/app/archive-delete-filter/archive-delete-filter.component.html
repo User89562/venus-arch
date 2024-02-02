@@ -60,7 +60,8 @@
             [hydrusFile]="item"
             [widthNum]="itemWidth"
             [heightNum]="itemHeight"
-            [thumbnail]="false"
+            [thumbnail]="true"
+            (click)="openFullscreenView(item)"
           ></app-image-display>
           <div class="image-action-container">
             <button

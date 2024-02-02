@@ -1,0 +1,38 @@
+.custom-swiper-container {
+  height: 87vh;
+  width: 90vw;
+  padding: 5px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.current-image {
+  height: 85vh;
+  max-width: 80vw;
+  object-position: center;
+  object-fit: contain;
+}
+
+.current-video {
+  width: 87vw;
+  height: 85vh;
+  object-position: center;
+  object-fit: contain;
+}
+
+.close-fullscreen-button {
+  color: orangered;
+  position: absolute;
+  right: 30px;
+
+  .mat-icon {
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
+    line-height: 27px;
+    margin-left: -6px;
+  }
+}

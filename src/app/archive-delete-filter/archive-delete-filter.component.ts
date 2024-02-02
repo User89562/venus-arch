@@ -1,3 +1,4 @@
+import { InjectorService } from './../services/injector.service';
 import { HydrusServiceSimple } from "./../ratings/hydrus-services";
 import { HydrusFile, RatingFileChanges, UserFiles } from "./../services/api";
 import { CommonModule } from "@angular/common";
@@ -9,6 +10,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  ViewContainerRef,
 } from "@angular/core";
 import { MaterialComponments } from "../modules/material-components.module";
 import { ImageDisplayComponent } from "../image-display/image-display.component";
@@ -36,6 +38,8 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogFormComponent } from "../dialog-form/dialog-form.component";
 import { Title } from "@angular/platform-browser";
+import { OverlayUtil } from "../utils/overlay-util";
+import { Overlay } from "@angular/cdk/overlay";
 
 @Component({
   selector: "app-archive-delete-filter",
@@ -77,6 +81,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport) virtualScroll!: CdkVirtualScrollViewport;
   ratingIconsOutline: any;
   ratingIcons: any;
+  overlayUtil: OverlayUtil;
 
   constructor(
     private fileService: FileService,
@@ -85,7 +90,10 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     private readonly ngZone: NgZone,
     private changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog,
-    titleService: Title
+    titleService: Title,
+    viewContainerRef: ViewContainerRef,
+    overlay: Overlay,
+    private injectorService: InjectorService
   ) {
     this.tags = ["system:limit = 8", "system:inbox", "system:no_duration"];
     this.startSearch = false;
@@ -98,6 +106,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.userFileChanges = new UserFiles();
     this.continue = true;
     this.ratingServices = new Map<string, HydrusRating>();
+    this.overlayUtil = new OverlayUtil(viewContainerRef, overlay);
     titleService.setTitle("Archive/Delete Filter | Venus\' Arch");
   }
 
@@ -280,6 +289,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
 
     if (this.startSearch) {
       this.loading = true;
+      this.processing = false;
       this.hydrusFiles = [];
       this.userFileChanges.archive = [];
       this.userFileChanges.delete = [];
@@ -302,6 +312,24 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
           },
         });
     }
+  }
+
+  openFullscreenView(file: HydrusFile): void {
+    this.overlayUtil.createFullscreenOverlay();
+
+    //send files to overlay
+    setTimeout(
+      () =>
+        this.injectorService.announceFullscreenOverlay(file),
+      300
+    );
+
+
+    this.injectorService.overlaySourceFound$.subscribe({
+      next: (msg) =>{
+        this.overlayUtil.closeOverlay();
+      }
+    })
   }
 
   downloadFile(file: HydrusFile): void {

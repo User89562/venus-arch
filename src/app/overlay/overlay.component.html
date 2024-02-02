@@ -1,0 +1,35 @@
+<div>
+  <button
+    mat-icon-button
+    class="close-fullscreen-button"
+    (click)="closeFullscreen()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div
+    fxLayoutAlign="center center"
+    class="custom-swiper-container"
+  >
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div *ngIf="imageType(hydrusFile.mime); else video" class="image-container">
+      <img
+        [src]="hydrusFile.file_url"
+        draggable="false"
+        class="current-image"
+      />
+    </div>
+    <ng-template #video>
+      <video
+        class="current-video"
+        controls
+        [muted]="true"
+        (loadeddata)="onLoad()"
+        [hidden]="loading"
+        #videoPlayer
+      >
+        <source [src]="hydrusFile.file_url" [type]="hydrusFile.mime" />
+        Your browser does not support the video tag.
+      </video>
+    </ng-template>
+  </div>
