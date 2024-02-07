@@ -1,4 +1,5 @@
 import { HydrusRating } from "../ratings/hydrus-rating";
+import { HydrusServiceType } from "../ratings/hydrus-services";
 
 export interface FileSearchAPI {
   file_ids: number[];
@@ -34,7 +35,25 @@ export interface HydrusFile {
   file_type?: HydrusFileType;
   has_thumbnail?: boolean;
   ratings?: HydrusRating[];
+  tags: {
+    [serviceKey: string]: HydrusTagService
+  }
 }
+
+export interface HydrusTagService {
+  name: string;
+  type: HydrusTagServiceType;
+  type_pretty: string,
+  storage_tags: StatusesToTags,
+  display_tags: StatusesToTags
+}
+
+export interface StatusesToTags {
+  [status: string]: string[];
+}
+
+export type HydrusTagServiceType = HydrusServiceType.TAG_REPOSITORY | HydrusServiceType.LOCAL_TAG | HydrusServiceType.COMBINED_TAG;
+
 
 export enum HydrusFileType {
   Image,

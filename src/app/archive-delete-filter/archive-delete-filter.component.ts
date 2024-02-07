@@ -308,7 +308,6 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
             this.hydrusFiles = files;
             this.generateDataChunk(this.hydrusFiles);
             this.loading = false;
-
           },
         });
     }
