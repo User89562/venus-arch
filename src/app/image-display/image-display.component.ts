@@ -39,15 +39,16 @@ export class ImageDisplayComponent {
   determineFileTitle(): string {
     let series = "";
 
-    this.hydrusFile.tags[
-      "616c6c206b6e6f776e2074616773"
-    ].display_tags[0].forEach((element) => {
-      if (element.includes("series")) {
-        series += element.substring(element.indexOf(":") + 1) + ", ";
-      }
-    });
+    if (this.hydrusFile.tags["616c6c206b6e6f776e2074616773"].display_tags[0]) {
+      this.hydrusFile.tags["616c6c206b6e6f776e2074616773"].display_tags[0].forEach((element) => {
+        if (element.includes("series")) {
+          series += element.substring(element.indexOf(":") + 1) + ", ";
+        }
+      });
+      return series.trimEnd().slice(0, -1);
+    }
 
-    return series.trimEnd().slice(0, -1);
+   
 
     return "";
   }
