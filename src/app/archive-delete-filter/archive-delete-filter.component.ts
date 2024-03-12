@@ -1,4 +1,4 @@
-import { InjectorService } from './../services/injector.service';
+import { InjectorService } from "./../services/injector.service";
 import { HydrusServiceSimple } from "./../ratings/hydrus-services";
 import { HydrusFile, RatingFileChanges, UserFiles } from "./../services/api";
 import { CommonModule } from "@angular/common";
@@ -25,9 +25,7 @@ import {
 } from "@angular/cdk/scrolling";
 import { ApiService } from "../services/api.service";
 import { HydrusServiceInfo } from "../ratings/hydrus-services";
-import {
-  HydrusRating,
-} from "../ratings/hydrus-rating";
+import { HydrusRating } from "../ratings/hydrus-rating";
 import {
   isIncDecRatingService,
   isLikeRatingService,
@@ -75,7 +73,6 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
   ratingServices: Map<string, HydrusRating>;
   ratingValue: number = 0;
   ratingFileChanges: RatingFileChanges[];
-  continue: boolean;
   userFileChanges: UserFiles;
   processing: boolean = false;
   @ViewChild(CdkVirtualScrollViewport) virtualScroll!: CdkVirtualScrollViewport;
@@ -99,15 +96,14 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.startSearch = false;
     this.loading = false;
     this.hydrusFiles = [];
-    this.continueFilter = false;
+    this.continueFilter = true;
     this.subscriptions = [];
     this.ratingFileChanges = [];
     this.chunkSize = 1;
     this.userFileChanges = new UserFiles();
-    this.continue = true;
     this.ratingServices = new Map<string, HydrusRating>();
     this.overlayUtil = new OverlayUtil(viewContainerRef, overlay);
-    titleService.setTitle("Archive/Delete Filter | Venus\' Arch");
+    titleService.setTitle("Archive/Delete Filter | Venus' Arch");
   }
 
   isNumericalRatingService = isNumericalRatingService;
@@ -317,18 +313,13 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.overlayUtil.createFullscreenOverlay();
 
     //send files to overlay
-    setTimeout(
-      () =>
-        this.injectorService.announceFullscreenOverlay(file),
-      300
-    );
-
+    setTimeout(() => this.injectorService.announceFullscreenOverlay(file), 300);
 
     this.injectorService.overlaySourceFound$.subscribe({
-      next: (msg) =>{
+      next: (msg) => {
         this.overlayUtil.closeOverlay();
-      }
-    })
+      },
+    });
   }
 
   downloadFile(file: HydrusFile): void {
@@ -399,6 +390,11 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     }
 
     this.updateFileStatuses(this.userFileChanges);
+
+    this.injectorService.announceDatabaseUpdate({
+      archiveNum: this.userFileChanges.archive.length,
+      totalFileChanges: this.hydrusFiles.length,
+    });
   }
 
   updateFileStatuses(userFiles: UserFiles): void {
@@ -455,7 +451,6 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 
   scrollToTop(): void {
     this.virtualScroll.scrollToIndex(0);
