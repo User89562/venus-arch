@@ -121,8 +121,6 @@
           }
         </div>
       </div>
-      } @empty {
-      <h2>No Files Found</h2>
       }
     </div>
   </cdk-virtual-scroll-viewport>
@@ -155,6 +153,7 @@
       >
     </div>
   </div>
-
+  } @if (noItemsInSearch) {
+    <h2>No Items Found</h2>
   }
 </div>

@@ -79,6 +79,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
   ratingIconsOutline: any;
   ratingIcons: any;
   overlayUtil: OverlayUtil;
+  noItemsInSearch: boolean;
 
   constructor(
     private fileService: FileService,
@@ -99,6 +100,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     this.continueFilter = true;
     this.subscriptions = [];
     this.ratingFileChanges = [];
+    this.noItemsInSearch = false;
     this.chunkSize = 1;
     this.userFileChanges = new UserFiles();
     this.ratingServices = new Map<string, HydrusRating>();
@@ -304,6 +306,11 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
             this.hydrusFiles = files;
             this.generateDataChunk(this.hydrusFiles);
             this.loading = false;
+            if (this.hydrusFiles.length == 0) {
+              this.noItemsInSearch = true;
+            } else {
+              this.noItemsInSearch = false;
+            }
           },
         });
     }

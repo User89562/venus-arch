@@ -1,5 +1,4 @@
 # To Do List
-- Add number of files within inbox (from mr_bones api call) -> use injector service to reduce number as it will be on the toolbar
 - Add ability to sort by direction and type as well as others (Currently sortDir and sortType are hardcoded)
     ```
         searchFiles(): void {

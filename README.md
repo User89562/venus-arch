@@ -1,5 +1,5 @@
 <!--npm check updates-->
-[Last Checked DEC 22 2023]
+[Last Checked June 18 2024]
 - [npm-check-updates](https://github.com/raineorshine/npm-check-updates)
   - "npx npm-check-updates"
 - [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages)
