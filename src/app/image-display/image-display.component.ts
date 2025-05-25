@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { MaterialComponments } from "../modules/material-components.module";
 import { HydrusFile } from "../services/api";
+import { MaterialComponents } from "../modules/material-components.module";
 
 @Component({
   selector: "app-image-display",
   standalone: true,
-  imports: [CommonModule, MaterialComponments],
+  imports: [CommonModule, MaterialComponents],
   templateUrl: "./image-display.component.html",
   styleUrl: "./image-display.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,7 +48,7 @@ export class ImageDisplayComponent {
       return series.trimEnd().slice(0, -1);
     }
 
-   
+
 
     return "";
   }

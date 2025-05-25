@@ -17,7 +17,7 @@ export class InjectorService {
 
 
   // Observable streams
-  proccessingFound$ = this.processingSource.asObservable();
+  processingFound$ = this.processingSource.asObservable();
   overlaySourceFound$ = this.overlaySource.asObservable();
   fullscreenOverlaySourceFound$ = this.fullscreenOverlaySource.asObservable();
   databaseUpdateSource$ = this.databaseUpdateSource.asObservable();

@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MaterialComponments } from '../modules/material-components.module';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { HydrusFile } from '../services/api';
 import { FileService } from '../services/file.service';
 import { ImageDisplayComponent } from '../image-display/image-display.component';
 import { Title } from '@angular/platform-browser';
+import { MaterialComponents } from '../modules/material-components.module';
 
 @Component({
   selector: 'app-search',
   standalone: true,
   imports: [
     CommonModule,
-    MaterialComponments,
+    MaterialComponents,
     FormsModule,
     ReactiveFormsModule,
     ImageDisplayComponent
@@ -86,7 +86,6 @@ export class SearchComponent {
         .subscribe({
           next: (files) => {
             this.hydrusFiles = files;
-            console.log(this.hydrusFiles);
             this.loading = false;
           },
         })

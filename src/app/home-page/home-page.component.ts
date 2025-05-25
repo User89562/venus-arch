@@ -1,8 +1,7 @@
-import { BreakpointObserver } from "@angular/cdk/layout";
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
-import { MaterialComponments } from "../modules/material-components.module";
+import { MaterialComponents} from "../modules/material-components.module";
 import { ApiService } from "../services/api.service";
 import { Boned } from "../services/api";
 import { InjectorService } from "../services/injector.service";
@@ -10,7 +9,7 @@ import { InjectorService } from "../services/injector.service";
 @Component({
   selector: "app-home-page",
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MaterialComponments, RouterModule],
+  imports: [CommonModule, RouterOutlet, MaterialComponents, RouterModule],
   templateUrl: "./home-page.component.html",
   styleUrls: ["./home-page.component.scss"],
 })
@@ -34,9 +33,4 @@ export class HomePageComponent implements OnInit {
       this.dbStats.boned_stats.num_inbox-=numChanges.totalFileChanges;
     })
   }
-
-
-
-
-  
 }

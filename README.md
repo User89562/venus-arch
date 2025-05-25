@@ -1,5 +1,5 @@
 <!--npm check updates-->
-[Last Checked June 18 2024]
+[Last Checked June 18 2024] - reverted back to angular 17 because of typescript
 - [npm-check-updates](https://github.com/raineorshine/npm-check-updates)
   - "npx npm-check-updates"
 - [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages)

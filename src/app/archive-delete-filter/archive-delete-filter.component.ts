@@ -12,7 +12,6 @@ import {
   ViewChild,
   ViewContainerRef,
 } from "@angular/core";
-import { MaterialComponments } from "../modules/material-components.module";
 import { ImageDisplayComponent } from "../image-display/image-display.component";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
@@ -38,13 +37,14 @@ import { DialogFormComponent } from "../dialog-form/dialog-form.component";
 import { Title } from "@angular/platform-browser";
 import { OverlayUtil } from "../utils/overlay-util";
 import { Overlay } from "@angular/cdk/overlay";
+import { MaterialComponents } from "../modules/material-components.module";
 
 @Component({
   selector: "app-archive-delete-filter",
   standalone: true,
   imports: [
     CommonModule,
-    MaterialComponments,
+    MaterialComponents,
     ImageDisplayComponent,
     FormsModule,
     ReactiveFormsModule,

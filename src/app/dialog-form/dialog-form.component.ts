@@ -7,12 +7,13 @@ import {
 } from "@angular/material/dialog";
 import { DialogData } from "./dialog-form-data";
 import { FormsModule } from "@angular/forms";
-import { MaterialComponments } from "../modules/material-components.module";
+import { MaterialComponents } from "../modules/material-components.module";
+
 
 @Component({
   selector: "app-dialog-form",
   standalone: true,
-  imports: [CommonModule, FormsModule, MaterialComponments],
+  imports: [CommonModule, FormsModule, MaterialComponents],
   templateUrl: "./dialog-form.component.html",
   styleUrl: "./dialog-form.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,

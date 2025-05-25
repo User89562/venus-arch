@@ -1,4 +1,3 @@
-import { MaterialComponments } from './../modules/material-components.module';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
@@ -7,11 +6,12 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoginUtil } from '../utils/login-util';
 import { ApiService } from '../services/api.service';
+import { MaterialComponents } from '../modules/material-components.module';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, MaterialComponments, ReactiveFormsModule],
+  imports: [CommonModule, MaterialComponents, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -82,7 +82,7 @@ export class LoginComponent {
   determineLoginLogo(): string {
     const path = "assets/app-logos/";
     const images = [
-      "app-logo.png"      
+      "app-logo.png"
     ];
     let index = Math.floor(Math.random() * (images.length - 1 - 0 + 1) + 0);
 

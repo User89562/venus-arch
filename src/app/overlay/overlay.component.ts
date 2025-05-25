@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { MaterialComponments } from '../modules/material-components.module';
 import { InjectorService } from '../services/injector.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { HydrusFile } from '../services/api';
+import { MaterialComponents } from '../modules/material-components.module';
 
 @Component({
   selector: 'app-overlay',
   standalone: true,
   imports: [
     CommonModule,
-    MaterialComponments,
+    MaterialComponents
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
@@ -48,7 +48,6 @@ export class OverlayComponent implements OnInit, OnDestroy{
     if (mime?.includes("video")) {
       return false;
     }
-    console.log('true');
     return true;
   }
 

@@ -187,14 +187,21 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-      /******************************************************************** 
+      /********************************************************************
     /*                         MANAGING DATABASE
     /******************************************************************** */
-  
+
     howBoned(): Observable<Boned> {
-      let delUrl = this.backendApi + 'manage_database/mr_bones';
+      let boneUrl = this.backendApi + 'manage_database/mr_bones';
+      const httpOptions = {
+      headers: {
+        rejectUnauthorized: "false",
+        "Hydrus-Client-API-Access-Key": `${this.apiKey}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
       return this.http
-        .get<Boned>(delUrl, this.setHttpOptions())
+        .get<Boned>(boneUrl, httpOptions)
         .pipe(catchError(this.handleError));
     }
 

@@ -36,8 +36,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import {MatBadgeModule} from '@angular/material/badge';
-import {ClipboardModule} from '@angular/cdk/clipboard'; 
-import {ScrollingModule} from '@angular/cdk/scrolling'; 
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 // changes the default values of tooltips for the whole project
@@ -109,4 +109,4 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 
   ],
 })
-export class MaterialComponments {}
+export class MaterialComponents {}

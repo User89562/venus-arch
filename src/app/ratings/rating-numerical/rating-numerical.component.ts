@@ -4,7 +4,8 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CUBE, GRAPH, ratingsIcons } from '../svg-icons';
 import { CommonModule } from '@angular/common';
-import { MaterialComponments } from '../../modules/material-components.module';
+import { MaterialComponents } from '../../modules/material-components.module';
+
 
 @Component({
   selector: 'app-rating-numerical',
@@ -13,7 +14,7 @@ import { MaterialComponments } from '../../modules/material-components.module';
   standalone: true,
   imports: [
     CommonModule,
-    MaterialComponments
+    MaterialComponents
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
