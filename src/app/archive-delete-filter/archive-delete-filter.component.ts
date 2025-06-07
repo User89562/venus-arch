@@ -57,6 +57,7 @@ import { MaterialComponents } from "../modules/material-components.module";
 })
 export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
   searchFormControl = new FormControl();
+  checked = true;
   tags: string[];
   startSearch: boolean;
   loading: boolean;
@@ -66,8 +67,8 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[];
   itemSet: HydrusFile[][] = [];
   chunkSize: number;
-  itemHeight: number = 430;
-  itemWidth: number = 495;
+  itemHeight: number = 305; //430
+  itemWidth: number = 370; //495
   h = 0;
   allServices!: HydrusServiceInfo;
   ratingServices: Map<string, HydrusRating>;
@@ -281,6 +282,7 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
   }
 
   searchFiles(): void {
+    console.log(this.checked);
     //temp
     let sortDir = true;
     let sortType = 2;
@@ -457,6 +459,18 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+
+  updateThumbnailSize(event: boolean) {
+    let size = 125;
+    if(event) {
+      this.itemHeight -=size;
+      this.itemWidth -=size;
+    } else {
+      this.itemHeight +=size;
+      this.itemWidth +=size;
+    }
+    this.generateDataChunk(this.hydrusFiles);
   }
 
   scrollToTop(): void {

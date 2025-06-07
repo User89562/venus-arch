@@ -37,6 +37,11 @@
         <mat-icon>{{ startSearch ? "play_arrow" : "pause" }}</mat-icon>
       </button>
     </div>
+
+      <section>
+        <mat-checkbox [(ngModel)]="checked" (change)="updateThumbnailSize(checked)">Thumbnail</mat-checkbox>
+      </section>
+
   </div>
   @if(!loading) {
   <cdk-virtual-scroll-viewport
@@ -60,7 +65,7 @@
             [hydrusFile]="item"
             [widthNum]="itemWidth"
             [heightNum]="itemHeight"
-            [thumbnail]="false"
+            [thumbnail]="checked"
             (click)="openFullscreenView(item)"
           ></app-image-display>
           <div class="image-action-container">
@@ -154,6 +159,6 @@
     </div>
   </div>
   } @if (noItemsInSearch) {
-    <h2>No Items Found</h2>
+  <h2>No Items Found</h2>
   }
 </div>
