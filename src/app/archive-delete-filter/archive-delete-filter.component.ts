@@ -461,6 +461,8 @@ export class ArchiveDeleteFilterComponent implements OnInit, OnDestroy {
     }
   }
 
+  // allows user to swap between thumbnail and hd image
+  // size controls the difference between the two (305/370 or 430/495 - with 125 diff)
   updateThumbnailSize(event: boolean) {
     let size = 125;
     if(event) {
